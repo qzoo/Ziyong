@@ -4,15 +4,12 @@
 # 版本：1.0.2, 支持Python版本：2.7 to 3.9
 # 支持操作系统： Linux, OSX, FreeBSD, OpenBSD and NetBSD, both 32-bit and 64-bit architectures
 # 说明: 默认情况下修改server和user就可以了。丢包率监测方向可以自定义，例如：CU = "www.facebook.com"。
-
 SERVER = "127.0.0.1"
-USER = "s01"
+PORT = PORT
+USER = "USER" 
+PASSWORD = "USER_PASSWORD"
+INTERVAL = 1 #更新间隔，单位：秒
 
-
-
-PORT = 35601
-PASSWORD = "USER_DEFAULT_PASSWORD"
-INTERVAL = 1
 PROBEPORT = 80
 PROBE_PROTOCOL_PREFER = "ipv4"  # ipv4, ipv6
 PING_PACKET_HISTORY_LEN = 100
