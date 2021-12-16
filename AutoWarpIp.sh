@@ -1,4 +1,3 @@
-
 #!/bin/bash
 Area="SG"
 UA_Browser="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.87 Safari/537.36";
@@ -15,7 +14,7 @@ function MediaUnlockTest() {
     while true
     do
     echo -n -e " Netflix:\t\t\t\t->\c";
-    local result=`curl -${1} --user-agent "${UA_Browser}" -sSL "https://netflix.com/" 2>&1`;
+    local result=`curl -${1} --user-agent "${UA_Browser}" -sSL "https://www.netflix.com/" 2>&1`;
     if [ "$result" == "Not Available" ];then
         echo -n -e "\r Netflix:\t\t\t\t${Font_Red}Unsupport${Font_Suffix}\n"
         systemctl restart wg-quick@wgcf
@@ -30,7 +29,7 @@ function MediaUnlockTest() {
         continue
     fi
     
-    local result=`curl -${1} --user-agent "${UA_Browser}" -sL "https://netflix.com/title/80018499" 2>&1`;
+    local result=`curl -${1} --user-agent "${UA_Browser}" -sL "https://www.netflix.com/title/80018499" 2>&1`;
     if [[ "$result" == *"page-404"* ]] || [[ "$result" == *"NSEZ-403"* ]];then
         echo -n -e "\r Netflix:\t\t\t\t${Font_Red}No${Font_Suffix}\n"
         systemctl restart wg-quick@wgcf
@@ -38,12 +37,12 @@ function MediaUnlockTest() {
         continue
     fi
     
-    local result1=`curl -${1} --user-agent "${UA_Browser}" -sL "https://netflix.com/title/70143836" 2>&1`;
-    local result2=`curl -${1} --user-agent "${UA_Browser}" -sL "https://netflix.com/title/80027042" 2>&1`;
-    local result3=`curl -${1} --user-agent "${UA_Browser}" -sL "https://netflix.com/title/70140425" 2>&1`;
-    local result4=`curl -${1} --user-agent "${UA_Browser}" -sL "https://netflix.com/title/70283261" 2>&1`;
-    local result5=`curl -${1} --user-agent "${UA_Browser}"-sL "https://netflix.com/title/70143860" 2>&1`;
-    local result6=`curl -${1} --user-agent "${UA_Browser}" -sL "https://netflix.com/title/70202589" 2>&1`;
+    local result1=`curl -${1} --user-agent "${UA_Browser}" -sL "https://www.netflix.com/title/70143836" 2>&1`;
+    local result2=`curl -${1} --user-agent "${UA_Browser}" -sL "https://www.netflix.com/title/80027042" 2>&1`;
+    local result3=`curl -${1} --user-agent "${UA_Browser}" -sL "https://www.netflix.com/title/70140425" 2>&1`;
+    local result4=`curl -${1} --user-agent "${UA_Browser}" -sL "https://www.netflix.com/title/70283261" 2>&1`;
+    local result5=`curl -${1} --user-agent "${UA_Browser}"-sL "https://www.netflix.com/title/70143860" 2>&1`;
+    local result6=`curl -${1} --user-agent "${UA_Browser}" -sL "https://www.netflix.com/title/70202589" 2>&1`;
     
     if [[ "$result1" == *"page-404"* ]] && [[ "$result2" == *"page-404"* ]] && [[ "$result3" == *"page-404"* ]] && [[ "$result4" == *"page-404"* ]] && [[ "$result5" == *"page-404"* ]] && [[ "$result6" == *"page-404"* ]];then
         echo -n -e "\r Netflix:\t\t\t\t${Font_Yellow}[N] Mark Only${Font_Suffix}\n"
@@ -52,7 +51,7 @@ function MediaUnlockTest() {
         continue
     fi
     
-    local region=`tr [:lower:] [:upper:] <<< $(curl -${1} --user-agent "${UA_Browser}" -fs --write-out %{redirect_url} --output /dev/null "https://netflix.com/title/80018499" | cut -d '/' -f4 | cut -d '-' -f1)` ;
+    local region=`tr [:lower:] [:upper:] <<< $(curl -${1} --user-agent "${UA_Browser}" -fs --write-out %{redirect_url} --output /dev/null "https://www.netflix.com/title/80018499" | cut -d '/' -f4 | cut -d '-' -f1)` ;
     
     if [[ ! -n "$region" ]];then
         region="US";
@@ -69,6 +68,6 @@ if [[ "$check4" != *"unreachable"* ]] && [[ "$check4" != *"Unreachable"* ]];then
     echo -e " ${Font_SkyBlue}** 正在测试IPv4解锁情况${Font_Suffix} "
     MediaUnlockTest 4;
 elif [[ "$check6" != *"unreachable"* ]] && [[ "$check6" != *"Unreachable"* ]];then
-        echo -e " ${Font_SkyBlue}** 正在测试IPv6解锁情况${Font_Suffix} "
+	echo -e " ${Font_SkyBlue}** 正在测试IPv6解锁情况${Font_Suffix} "
     MediaUnlockTest 6;
 fi
